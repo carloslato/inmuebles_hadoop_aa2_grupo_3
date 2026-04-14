@@ -8,6 +8,11 @@ services:
       - 9000:9000
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
+      - ./input-data:/input-data
+      - ./src:/src
+      - ./namenode_entrypoint.sh:/usr/local/bin/namenode_entrypoint.sh
+      - ./output-wordcounter:/host_output
+    entrypoint: ["/usr/local/bin/namenode_entrypoint.sh"]
     environment:
       - CLUSTER_NAME=test
     env_file:
