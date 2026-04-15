@@ -13,7 +13,7 @@ echo "Java source file copied."
 # --- HDFS Operations ---
 echo "Performing HDFS operations..."
 hdfs dfs -mkdir -p /input
-echo "Uploading input files (.txt and .csv) from /input-data to HDFS /input directory..."
+echo "Uploading input files (.txt and .csv and .md) from /input-data to HDFS /input directory..."
 # Using find and xargs for robust handling of multiple files with varying names.
 # -maxdepth 1 ensures we only look in the top-level input-data directory.
 # -type f ensures we only copy files.
@@ -21,8 +21,8 @@ echo "Uploading input files (.txt and .csv) from /input-data to HDFS /input dire
 # -print0 and xargs -0 handle filenames with spaces or special characters.
 # -I {} replaces {} with the found filename.
 # hdfs dfs -put -f {} /input/ uploads the file and forces overwrite if it exists.
-find /input-data -maxdepth 1 -type f \( -name "*.txt" -o -name "*.csv" \) -print0 | xargs -0 -I {} hdfs dfs -put -f {} /input/
-echo "Input .txt and .csv files uploaded to HDFS /input directory."
+find /input-data -maxdepth 1 -type f \( -name "*.txt" -o -name "*.csv" -o -name "*.md" \) -print0 | xargs -0 -I {} hdfs dfs -put -f {} /input/
+echo "Input .txt and .csv and .md files uploaded to HDFS /input directory."
 
 # --- Java Compilation and JAR Creation ---
 echo "Preparing for Java compilation and JAR creation..."
